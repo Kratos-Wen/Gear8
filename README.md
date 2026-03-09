@@ -5,7 +5,7 @@
     <a href='https://scholar.google.com/citations?user=aqGMqEcAAAAJ&hl=en' target='_blank'>Di Wen</a>&emsp;
     <a href='https://scholar.google.com/citations?user=i6RJsvwAAAAJ&hl=en' target='_blank'>Junwei Zheng</a>&emsp;
     <a href='https://scholar.google.com/citations?user=tJYUHDgAAAAJ&hl=en' target='_blank'>Ruiping Liu</a>&emsp;
-    Yi Xu;
+    <a href='mailto:xuyipc@yeah.net'>Yi Xu</a>&emsp;
     <a href='https://scholar.google.com/citations?user=pA9c0YsAAAAJ&hl=en' target='_blank'>Kunyu Peng&#8224;</a>&emsp;
     <a href='https://scholar.google.com/citations?user=SFCOJxMAAAAJ&hl=en' target='_blank'>Rainer Stiefelhagen</a>
 </div>
@@ -16,7 +16,7 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2507.21072-B31B1B.svg)](https://arxiv.org/abs/2507.21072)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-0A66C2.svg)](LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/Kratos-Wen/Gear8?style=social)](https://github.com/Kratos-Wen/Gear8)
+[![GitHub Stars](https://img.shields.io/github/stars/Kratos-Wen/Gear8?style=social&cacheSeconds=300)](https://github.com/Kratos-Wen/Gear8)
 [![GitHub Forks](https://img.shields.io/github/forks/Kratos-Wen/Gear8)](https://github.com/Kratos-Wen/Gear8/forks)
 </div>
 
