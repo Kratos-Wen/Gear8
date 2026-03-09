@@ -38,6 +38,12 @@ This repository provides a clean, modularized implementation of the Snap-Segment
 ## Repository Layout
 ```text
 snap_segment_deploy/
+├── checkpoint/
+│   ├── Phi-3-mini-4k-instruct-Q6_K.gguf
+│   └── YOLO11s2/
+│       └── best.pt
+├── dataset/
+│   └── components.json
 ├── run_deploy_stage.py
 ├── snap_segment_deploy_assistant/
 │   ├── config.py
@@ -51,6 +57,8 @@ snap_segment_deploy/
 │   ├── snap_stage_data_capture.py
 │   ├── segment_stage_synthetic_composition.py
 │   └── types.py
+├── third_party/
+│   └── Depth-Anything/
 └── assets/
     └── Teaser.jpg
 ```
@@ -74,9 +82,9 @@ Place `Depth-Anything` at one fixed location:
 
 Expected files:
 
-- `runs_2stage_small/YOLO11s2/weights/best.pt`
-- `Phi-3-mini-4k-instruct-Q6_K.gguf`
-- `components.json`
+- `dataset/components.json`
+- `checkpoint/YOLO11s2/best.pt`
+- `checkpoint/Phi-3-mini-4k-instruct-Q6_K.gguf`
 
 If any file is missing, use the following sources:
 
@@ -85,8 +93,15 @@ If any file is missing, use the following sources:
 2. Depth model weights (`LiheYoung/depth_anything_vitl14`): auto-downloaded from Hugging Face on first run.
 3. Whisper model (`base`): auto-downloaded by `openai-whisper` on first run.
 4. Sentence embedding model (`all-MiniLM-L6-v2`): auto-downloaded from Hugging Face on first run.
-5. `best.pt`, `components.json`, and `Phi-3-mini-4k-instruct-Q6_K.gguf`: place them under `FastSAM_Cutie/FastSAM/` as above.  
-   For public release, provide these files via this repository's release assets.
+5. Phi-3 GGUF model download:
+   [Phi-3-mini-4k-instruct-Q6_K.gguf](https://huggingface.co/bartowski/Phi-3-mini-4k-instruct-GGUF/resolve/main/Phi-3-mini-4k-instruct-Q6_K.gguf)  
+   Save it to `checkpoint/Phi-3-mini-4k-instruct-Q6_K.gguf`.
+
+```bash
+mkdir -p checkpoint
+wget -O checkpoint/Phi-3-mini-4k-instruct-Q6_K.gguf \
+  https://huggingface.co/bartowski/Phi-3-mini-4k-instruct-GGUF/resolve/main/Phi-3-mini-4k-instruct-Q6_K.gguf
+```
 
 ## Run
 From this repository root:

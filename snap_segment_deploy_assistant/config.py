@@ -8,23 +8,6 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
-
-def _first_existing(candidates: list[Path]) -> Path:
-    """Return the first existing path, otherwise fall back to the first candidate."""
-    for path in candidates:
-        if path.exists():
-            return path
-    return candidates[0]
-
-
-FASTSAM_ROOT = _first_existing(
-    [
-        REPO_ROOT / "FastSAM_Cutie" / "FastSAM",
-        REPO_ROOT.parent / "FastSAM_Cutie" / "FastSAM",
-        REPO_ROOT.parents[1] / "FastSAM_Cutie" / "FastSAM",
-    ]
-)
-
 # Fixed single location for the Depth-Anything codebase.
 DEPTH_ANYTHING_ROOT = REPO_ROOT / "third_party" / "Depth-Anything"
 
@@ -47,9 +30,9 @@ class ModuleNameConfig:
 class PathConfig:
     """File paths for checkpoints and metadata."""
 
-    yolo_weights: Path = FASTSAM_ROOT / "runs_2stage_small" / "YOLO11s2" / "weights" / "best.pt"
-    llm_model: Path = FASTSAM_ROOT / "Phi-3-mini-4k-instruct-Q6_K.gguf"
-    components_json: Path = FASTSAM_ROOT / "components.json"
+    yolo_weights: Path = REPO_ROOT / "checkpoint" / "YOLO11s2" / "best.pt"
+    llm_model: Path = REPO_ROOT / "checkpoint" / "Phi-3-mini-4k-instruct-Q6_K.gguf"
+    components_json: Path = REPO_ROOT / "dataset" / "components.json"
     depth_anything_root: Path = DEPTH_ANYTHING_ROOT
     merged_output_image: Path = Path("merged_output.jpg")
 
