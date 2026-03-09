@@ -1,72 +1,87 @@
-# Snap-Segment-Deploy Code Structure
+<div align="center">
+  <h1>Snap-Segment-Deploy</h1>
+  <p><strong>Modular pipeline for Snap, Segment, and Deploy in industrial assembly assistance.</strong></p>
 
-This folder reorganizes the implementation around the terminology of **arXiv:2507.21072v1**:
+[![Paper](https://img.shields.io/badge/arXiv-XXXX.XXXXX-B31B1B.svg)](https://arxiv.org/abs/XXXX.XXXXX)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB.svg?logo=python&logoColor=white)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-Apache%202.0-0A66C2.svg)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/YOUR_ORG/YOUR_REPO?style=social)](https://github.com/YOUR_ORG/YOUR_REPO)
+[![GitHub Forks](https://img.shields.io/github/forks/YOUR_ORG/YOUR_REPO?style=social)](https://github.com/YOUR_ORG/YOUR_REPO/forks)
+</div>
 
-- **Snap**: multi-view part data capture
-- **Segment**: mask-driven synthetic composition
-- **Deploy**: on-device assistant runtime
+<p align="center">
+  <img src="assets/main_figure.svg" alt="Main figure placeholder" width="92%">
+</p>
 
-The deploy runtime follows the original script behavior: YOLO-based detection, multi-frame fusion, depth-aware object ranking, FAISS retrieval, local LLM response generation, Whisper speech input, and pyttsx3 audio output.
+<p align="center">
+  Replace <code>assets/main_figure.svg</code> with your paper main figure (for example, <code>assets/main_figure.png</code>).
+</p>
 
-## Module Map (Paper-Aligned Names)
+## Overview
+This repository provides a clean, modularized implementation of the Snap-Segment-Deploy pipeline with paper-aligned module naming:
 
-- `background_agnostic_refinement.py`: **Background-Agnostic Refinement (BAR)**
-- `knowledge_base_construction.py`: **Knowledge Base Construction**
-- `query_acquisition.py`: **Query Acquisition**
-- `semantic_retrieval_and_response_generation.py`: **Semantic Retrieval and Knowledge-Augmented Response Generation**
-- `retrieval_augmented_multimodal_interaction.py`: **Retrieval-Augmented Multimodal Interaction**
-- `deploy_stage_runtime.py`: **Deploy** runtime integration
-- `snap_stage_data_capture.py`: **Snap** helpers
-- `segment_stage_synthetic_composition.py`: **Segment** helpers
+- `Snap`: multi-view data capture for part images.
+- `Segment`: synthetic composition and optional Background-Agnostic Refinement (BAR) utilities.
+- `Deploy`: retrieval-augmented multimodal interaction with detection, depth, ASR, and local LLM reasoning.
 
-## Folder Structure
+The runtime logic remains aligned with the original `User_Study_AVCR.py` behavior while exposing modular boundaries for extension and ablation studies.
 
+## Repository Layout
 ```text
 snap_segment_deploy/
-├── README.md
 ├── run_deploy_stage.py
-└── snap_segment_deploy_assistant/
-    ├── __init__.py
-    ├── config.py
-    ├── types.py
-    ├── background_agnostic_refinement.py
-    ├── snap_stage_data_capture.py
-    ├── segment_stage_synthetic_composition.py
-    ├── knowledge_base_construction.py
-    ├── query_acquisition.py
-    ├── semantic_retrieval_and_response_generation.py
-    ├── retrieval_augmented_multimodal_interaction.py
-    ├── speech_input_output.py
-    └── deploy_stage_runtime.py
+├── snap_segment_deploy_assistant/
+│   ├── config.py
+│   ├── deploy_stage_runtime.py
+│   ├── query_acquisition.py
+│   ├── semantic_retrieval_and_response_generation.py
+│   ├── retrieval_augmented_multimodal_interaction.py
+│   ├── speech_input_output.py
+│   ├── knowledge_base_construction.py
+│   ├── background_agnostic_refinement.py
+│   ├── snap_stage_data_capture.py
+│   ├── segment_stage_synthetic_composition.py
+│   └── types.py
+└── assets/
+    └── main_figure.svg
 ```
 
-## Default Runtime Models and Paths
-
-Defaults in `config.py` are aligned to the original local setup:
-
-- YOLO weights: `FastSAM_Cutie/FastSAM/runs_2stage_small/YOLO11s2/weights/best.pt`
-- Depth model: `LiheYoung/depth_anything_vitl14`
-- Embedding model: `all-MiniLM-L6-v2`
-- STT model: `whisper` `"base"`
-- LLM: `Phi-3-mini-4k-instruct-Q6_K.gguf`
-
-Update paths in `snap_segment_deploy_assistant/config.py` if needed.
-
-## Run Deploy Stage
+## Setup
+### 1. Environment
+Use Python 3.10+ and install dependencies according to your platform/CUDA setup.
 
 ```bash
-cd ACVR/snap_segment_deploy
+pip install -U pip
+pip install torch torchvision ultralytics opencv-python numpy faiss-cpu sentence-transformers
+pip install llama-cpp-python sounddevice pyttsx3 pygame openai-whisper
+```
+
+If your project uses a local `Depth Anything` source tree, make sure it is importable in your environment.
+
+### 2. Path Configuration
+Edit `snap_segment_deploy_assistant/config.py` and set the actual paths for:
+
+- `PathConfig.yolo_weights`
+- `PathConfig.llm_model`
+- `PathConfig.components_json`
+
+## Run
+From the repository root:
+
+```bash
 python run_deploy_stage.py
 ```
 
-Runtime keys:
+Runtime controls:
 
-- `v`: start voice query
-- `r`: restart query acquisition
-- `q`: quit
+- Press `v` to start voice query.
+- Press `r` to restart detection.
+- Press `q` to quit.
 
-## Notes
+## Output
+- Detection visualization is saved as `merged_output.jpg` by default.
+- Query responses are generated with retrieved context and spoken via TTS.
 
-- This structure is intentionally single-agent and does not include role-routing logic.
-- `background_agnostic_refinement.py` provides BAR data-preparation utilities for stage-2 training.
-- `snap_stage_data_capture.py` and `segment_stage_synthetic_composition.py` are lightweight helpers for dataset pipeline scripting.
+## Notes for Release
+- Replace placeholder badge links (`YOUR_ORG/YOUR_REPO`, `XXXX.XXXXX`) before public release.
+- Replace `assets/main_figure.svg` with your final paper figure.
