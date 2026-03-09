@@ -94,3 +94,22 @@ The Gear8 dataset mentioned in the paper will be released with this repository.
 
 - Download link: **[Coming soon](https://github.com/Kratos-Wen/Gear8/releases)**  
   Replace this link with the final dataset URL when ready.
+
+## Citation
+```bibtex
+@article{wen2025snap,
+  title={Snap, segment, deploy: A visual data and detection pipeline for wearable industrial assistants},
+  author={Wen, Di and Zheng, Junwei and Liu, Ruiping and Xu, Yi and Peng, Kunyu and Stiefelhagen, Rainer},
+  journal={arXiv preprint arXiv:2507.21072},
+  year={2025}
+}
+```
+
+## Acknowledgement
+Part of this work's implemention refers to several prior works including
+[Ultralytics YOLO](https://github.com/ultralytics/ultralytics),
+[Depth Anything](https://github.com/LiheYoung/Depth-Anything),
+[Whisper](https://github.com/openai/whisper),
+[Sentence-Transformers](https://github.com/UKPLab/sentence-transformers),
+[llama.cpp](https://github.com/ggerganov/llama.cpp),
+and [Phi-3 Mini 4K Instruct](https://huggingface.co/microsoft/Phi-3-mini-4k-instruct).
