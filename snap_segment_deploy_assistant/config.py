@@ -1,0 +1,94 @@
+"""Configuration for the Snap-Segment-Deploy assistant pipeline."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from pathlib import Path
+
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+FASTSAM_ROOT = PROJECT_ROOT / "FastSAM_Cutie" / "FastSAM"
+
+
+@dataclass(frozen=True)
+class ModuleNameConfig:
+    """Canonical module names from 2507.21072v1."""
+
+    stage_1: str = "Snap"
+    stage_2: str = "Segment"
+    stage_3: str = "Deploy"
+    training_module: str = "Background-Agnostic Refinement (BAR)"
+    interaction_module: str = "Retrieval-Augmented Multimodal Interaction"
+    kb_module: str = "Knowledge Base Construction"
+    query_module: str = "Query Acquisition"
+    response_module: str = "Semantic Retrieval and Knowledge-Augmented Response Generation"
+
+
+@dataclass(frozen=True)
+class PathConfig:
+    """File paths for checkpoints and metadata."""
+
+    yolo_weights: Path = FASTSAM_ROOT / "runs_2stage_small" / "YOLO11s2" / "weights" / "best.pt"
+    llm_model: Path = FASTSAM_ROOT / "Phi-3-mini-4k-instruct-Q6_K.gguf"
+    components_json: Path = FASTSAM_ROOT / "components.json"
+    merged_output_image: Path = Path("merged_output.jpg")
+
+
+@dataclass(frozen=True)
+class ModelConfig:
+    """Model identifiers used by the original implementation."""
+
+    depth_model_name: str = "LiheYoung/depth_anything_vitl14"
+    stt_model_name: str = "base"
+    embedding_model_name: str = "all-MiniLM-L6-v2"
+
+
+@dataclass(frozen=True)
+class QueryAcquisitionConfig:
+    """Detection and multi-frame fusion settings."""
+
+    camera_index: int = 0
+    confidence_threshold: float = 0.4
+    iou_threshold: float = 0.5
+    min_votes: int = 2
+    required_consecutive_frames: int = 5
+    max_saved_frames: int = 10
+    frame_equalize: bool = False
+
+
+@dataclass(frozen=True)
+class InteractionConfig:
+    """Speech and runtime interaction settings."""
+
+    query_duration_sec: int = 8
+    fallback_samplerate: int = 16000
+    tts_rate: int = 180
+    history_size: int = 20
+    history_top_k: int = 2
+    kb_top_k: int = 2
+    poll_interval_sec: float = 0.1
+
+
+@dataclass(frozen=True)
+class LLMConfig:
+    """Local LLM runtime options."""
+
+    context_tokens: int = 4096
+    cpu_threads: int = 4
+    gpu_layers: int = 100
+    max_tokens: int = 256
+    temperature: float = 0.2
+    stop_token: str = "<end>"
+
+
+@dataclass(frozen=True)
+class PipelineConfig:
+    """Top-level runtime configuration."""
+
+    modules: ModuleNameConfig = field(default_factory=ModuleNameConfig)
+    paths: PathConfig = field(default_factory=PathConfig)
+    models: ModelConfig = field(default_factory=ModelConfig)
+    query: QueryAcquisitionConfig = field(default_factory=QueryAcquisitionConfig)
+    interaction: InteractionConfig = field(default_factory=InteractionConfig)
+    llm: LLMConfig = field(default_factory=LLMConfig)
+    run_tag: str = "ssd_baseline"
