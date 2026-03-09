@@ -52,29 +52,51 @@ snap_segment_deploy/
 ```
 
 ## Setup
-### 1. Environment
-Use Python 3.10+ and install dependencies according to your platform/CUDA setup.
+### 1. Create a New Environment
+Create and activate a clean Python environment (recommended: Python 3.10):
 
 ```bash
+conda create -y -p .conda_env python=3.10
+conda activate /PATH/TO/snap_segment_deploy/.conda_env
 pip install -U pip
 pip install torch torchvision ultralytics opencv-python numpy faiss-cpu sentence-transformers
 pip install llama-cpp-python sounddevice pyttsx3 pygame openai-whisper
 ```
 
-If your project uses a local `Depth Anything` source tree, make sure it is importable in your environment.
+### 2. Required Repositories and Assets
+The current implementation expects the following folder structure (same behavior as the original script):
 
-### 2. Path Configuration
-Edit `snap_segment_deploy_assistant/config.py` and set the actual paths for:
+```text
+WORKSPACE_ROOT/
+├── ACVR/
+│   └── snap_segment_deploy/
+└── Depth-Anything/
+```
 
-- `PathConfig.yolo_weights`
-- `PathConfig.llm_model`
-- `PathConfig.components_json`
+`snap_segment_deploy_assistant/config.py` resolves `PROJECT_ROOT` as `WORKSPACE_ROOT` and looks for:
+
+- `FastSAM_Cutie/FastSAM/runs_2stage_small/YOLO11s2/weights/best.pt`
+- `FastSAM_Cutie/FastSAM/Phi-3-mini-4k-instruct-Q6_K.gguf`
+- `FastSAM_Cutie/FastSAM/components.json`
+
+If any file is missing, use the following sources:
+
+1. `Depth-Anything` codebase: [LiheYoung/Depth-Anything](https://github.com/LiheYoung/Depth-Anything)  
+   This repository provides `torchhub/facebookresearch_dinov2_main`, which is required by the depth module.
+2. Depth model weights (`LiheYoung/depth_anything_vitl14`): auto-downloaded from Hugging Face on first run.
+3. Whisper model (`base`): auto-downloaded by `openai-whisper` on first run.
+4. Sentence embedding model (`all-MiniLM-L6-v2`): auto-downloaded from Hugging Face on first run.
+5. `best.pt`, `components.json`, and `Phi-3-mini-4k-instruct-Q6_K.gguf`: place them under `FastSAM_Cutie/FastSAM/` as above.  
+   For public release, provide these files via this repository's release assets.
 
 ## Run
-From the repository root:
+Run from the `Depth-Anything` directory so that local DINOv2 torchhub path can be resolved:
 
 ```bash
-python run_deploy_stage.py
+cd /PATH/TO/Depth-Anything
+PYTHONPATH=/PATH/TO/Depth-Anything:/PATH/TO/ACVR/snap_segment_deploy \
+  /PATH/TO/ACVR/snap_segment_deploy/.conda_env/bin/python \
+  /PATH/TO/ACVR/snap_segment_deploy/run_deploy_stage.py
 ```
 
 Runtime controls:
@@ -105,7 +127,7 @@ The Gear8 dataset mentioned in the paper will be released with this repository.
 ```
 
 ## Acknowledgement
-Part of this work's implemention refers to several prior works including
+Part of this work's implementation refers to several prior works including
 [Ultralytics YOLO](https://github.com/ultralytics/ultralytics),
 [Depth Anything](https://github.com/LiheYoung/Depth-Anything),
 [Whisper](https://github.com/openai/whisper),
