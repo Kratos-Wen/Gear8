@@ -6,8 +6,34 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
-FASTSAM_ROOT = PROJECT_ROOT / "FastSAM_Cutie" / "FastSAM"
+REPO_ROOT = Path(__file__).resolve().parents[1]
+WORKSPACE_ROOT = REPO_ROOT.parents[1]
+
+
+def _first_existing(candidates: list[Path]) -> Path:
+    """Return the first existing path, otherwise fall back to the first candidate."""
+    for path in candidates:
+        if path.exists():
+            return path
+    return candidates[0]
+
+
+FASTSAM_ROOT = _first_existing(
+    [
+        REPO_ROOT / "FastSAM_Cutie" / "FastSAM",
+        REPO_ROOT.parent / "FastSAM_Cutie" / "FastSAM",
+        WORKSPACE_ROOT / "FastSAM_Cutie" / "FastSAM",
+    ]
+)
+
+DEPTH_ANYTHING_ROOT = _first_existing(
+    [
+        REPO_ROOT / "Depth-Anything",
+        REPO_ROOT / "third_party" / "Depth-Anything",
+        REPO_ROOT.parent / "Depth-Anything",
+        WORKSPACE_ROOT / "Depth-Anything",
+    ]
+)
 
 
 @dataclass(frozen=True)
@@ -31,6 +57,7 @@ class PathConfig:
     yolo_weights: Path = FASTSAM_ROOT / "runs_2stage_small" / "YOLO11s2" / "weights" / "best.pt"
     llm_model: Path = FASTSAM_ROOT / "Phi-3-mini-4k-instruct-Q6_K.gguf"
     components_json: Path = FASTSAM_ROOT / "components.json"
+    depth_anything_root: Path = DEPTH_ANYTHING_ROOT
     merged_output_image: Path = Path("merged_output.jpg")
 
 

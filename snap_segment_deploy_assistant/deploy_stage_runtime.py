@@ -3,8 +3,12 @@
 from __future__ import annotations
 
 import json
+import os
+import sys
 import time
 from collections import deque
+from contextlib import contextmanager
+from pathlib import Path
 
 import cv2
 import faiss
@@ -15,8 +19,6 @@ import sounddevice as sd
 import torch
 import torch.nn.functional as F
 import whisper
-from depth_anything.dpt import DepthAnything
-from depth_anything.util.transform import NormalizeImage, PrepareForNet, Resize
 from llama_cpp import Llama
 from sentence_transformers import SentenceTransformer
 from torchvision.transforms import Compose
@@ -26,6 +28,17 @@ from .config import PipelineConfig
 from .query_acquisition import equalize_frame, merge_detections, suppress_duplicate_boxes
 from .retrieval_augmented_multimodal_interaction import RetrievalAugmentedMultimodalInteraction
 from .speech_input_output import VoiceQueryHandler, text_to_speech
+
+
+@contextmanager
+def _temporary_working_directory(target_dir: Path):
+    """Temporarily switch current working directory."""
+    previous_dir = Path.cwd()
+    os.chdir(target_dir)
+    try:
+        yield
+    finally:
+        os.chdir(previous_dir)
 
 
 class DeployStageRuntime:
@@ -52,7 +65,25 @@ class DeployStageRuntime:
     def _load_models(self) -> None:
         """Load detector, depth model, STT, embedding model, LLM, and KB index."""
         self.model = YOLO(str(self.config.paths.yolo_weights))
-        self.depth_model = DepthAnything.from_pretrained(self.config.models.depth_model_name).to(self.device).eval()
+
+        depth_anything_root = self.config.paths.depth_anything_root
+        depth_pkg_dir = depth_anything_root / "depth_anything"
+        if not depth_pkg_dir.exists():
+            raise FileNotFoundError(
+                "Depth-Anything source is missing. Expected a directory containing "
+                f"`depth_anything/` at: {depth_anything_root}"
+            )
+        depth_root_str = str(depth_anything_root.resolve())
+        if depth_root_str not in sys.path:
+            sys.path.insert(0, depth_root_str)
+
+        from depth_anything.dpt import DepthAnything
+        from depth_anything.util.transform import NormalizeImage, PrepareForNet, Resize
+
+        # Depth-Anything expects local torchhub paths relative to its repository root.
+        with _temporary_working_directory(depth_anything_root):
+            self.depth_model = DepthAnything.from_pretrained(self.config.models.depth_model_name).to(self.device).eval()
+
         self.speech_model = whisper.load_model(self.config.models.stt_model_name).to(self.device)
         self.tts_engine = pyttsx3.init()
         self.tts_engine.setProperty("rate", self.config.interaction.tts_rate)

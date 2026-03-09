@@ -64,20 +64,26 @@ pip install llama-cpp-python sounddevice pyttsx3 pygame openai-whisper
 ```
 
 ### 2. Required Repositories and Assets
-The current implementation expects the following folder structure (same behavior as the original script):
+The implementation auto-detects `Depth-Anything` in the following order:
 
-```text
-WORKSPACE_ROOT/
-├── ACVR/
-│   └── snap_segment_deploy/
-└── Depth-Anything/
-```
+- `./Depth-Anything` (recommended)
+- `./third_party/Depth-Anything`
+- `../Depth-Anything`
+- `../../Depth-Anything`
 
-`snap_segment_deploy_assistant/config.py` resolves `PROJECT_ROOT` as `WORKSPACE_ROOT` and looks for:
+You can also set `PathConfig.depth_anything_root` manually in `snap_segment_deploy_assistant/config.py`.
 
-- `FastSAM_Cutie/FastSAM/runs_2stage_small/YOLO11s2/weights/best.pt`
-- `FastSAM_Cutie/FastSAM/Phi-3-mini-4k-instruct-Q6_K.gguf`
-- `FastSAM_Cutie/FastSAM/components.json`
+`FastSAM_Cutie/FastSAM` is searched in:
+
+- `./FastSAM_Cutie/FastSAM`
+- `../FastSAM_Cutie/FastSAM`
+- `../../FastSAM_Cutie/FastSAM`
+
+Expected files:
+
+- `runs_2stage_small/YOLO11s2/weights/best.pt`
+- `Phi-3-mini-4k-instruct-Q6_K.gguf`
+- `components.json`
 
 If any file is missing, use the following sources:
 
@@ -90,13 +96,11 @@ If any file is missing, use the following sources:
    For public release, provide these files via this repository's release assets.
 
 ## Run
-Run from the `Depth-Anything` directory so that local DINOv2 torchhub path can be resolved:
+From this repository root:
 
 ```bash
-cd /PATH/TO/Depth-Anything
-PYTHONPATH=/PATH/TO/Depth-Anything:/PATH/TO/ACVR/snap_segment_deploy \
-  /PATH/TO/ACVR/snap_segment_deploy/.conda_env/bin/python \
-  /PATH/TO/ACVR/snap_segment_deploy/run_deploy_stage.py
+cd /PATH/TO/snap_segment_deploy
+python run_deploy_stage.py
 ```
 
 Runtime controls:
