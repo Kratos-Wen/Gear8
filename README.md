@@ -32,10 +32,8 @@ This repository provides a clean, modularized implementation of the Snap-Segment
 - `Deploy`: retrieval-augmented multimodal interaction with detection, depth, ASR, and local LLM reasoning.
 
 ## Path Configuration Notice
-- This repository does **not** depend on any personal local path.
 - In this README, every path written as `/PATH/TO/...` is a placeholder.
 - You must replace these placeholders with paths on your own machine before running.
-- Do not commit personal absolute paths when publishing your own fork.
 
 ## Repository Layout
 ```text
