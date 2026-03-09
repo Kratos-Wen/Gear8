@@ -57,11 +57,11 @@ snap_segment_deploy/
 
 ## Setup
 ### 1. Create a New Environment
-Create and activate a clean Python environment (recommended: Python 3.10):
+Create and activate a clean conda environment (recommended: Python 3.10):
 
 ```bash
-python3.10 -m venv .venv
-source .venv/bin/activate
+conda create -n gear8 python=3.10 -y
+conda activate gear8
 pip install -U pip
 pip install torch torchvision ultralytics opencv-python numpy faiss-cpu sentence-transformers
 pip install llama-cpp-python sounddevice pyttsx3 pygame openai-whisper
