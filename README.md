@@ -21,11 +21,7 @@
 </div>
 
 <p align="center">
-  <img src="assets/main_figure.svg" alt="Main figure placeholder" width="92%">
-</p>
-
-<p align="center">
-  Replace <code>assets/main_figure.svg</code> with your paper main figure (for example, <code>assets/main_figure.png</code>).
+  <img src="assets/Teaser.jpg" alt="Teaser" width="92%">
 </p>
 
 ## Overview
@@ -54,7 +50,7 @@ snap_segment_deploy/
 │   ├── segment_stage_synthetic_composition.py
 │   └── types.py
 └── assets/
-    └── main_figure.svg
+    └── Teaser.jpg
 ```
 
 ## Setup
@@ -93,6 +89,8 @@ Runtime controls:
 - Detection visualization is saved as `merged_output.jpg` by default.
 - Query responses are generated with retrieved context and spoken via TTS.
 
-## Notes for Release
-- Replace placeholder badge links (`YOUR_ORG/YOUR_REPO`, `XXXX.XXXXX`) before public release.
-- Replace `assets/main_figure.svg` with your final paper figure.
+## Gear8 Dataset
+The Gear8 dataset mentioned in the paper will be released with this repository.
+
+- Download link: **[Coming soon](https://github.com/Kratos-Wen/Gear8/releases)**  
+  Replace this link with the final dataset URL when ready.
