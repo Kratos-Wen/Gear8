@@ -1,12 +1,23 @@
 <div align="center">
-  <h1>Snap-Segment-Deploy</h1>
-  <p><strong>Modular pipeline for Snap, Segment, and Deploy in industrial assembly assistance.</strong></p>
+  <h1>Snap, Segment, Deploy: A Visual Data and Detection Pipeline for Wearable Industrial Assistants</h1>
 
-[![Paper](https://img.shields.io/badge/arXiv-XXXX.XXXXX-B31B1B.svg)](https://arxiv.org/abs/XXXX.XXXXX)
+<div>
+    <a href='https://scholar.google.com/citations?user=aqGMqEcAAAAJ&hl=en' target='_blank'>Di Wen</a>&emsp;
+    <a href='https://scholar.google.com/citations?user=i6RJsvwAAAAJ&hl=en' target='_blank'>Junwei Zheng</a>&emsp;
+    <a href='https://scholar.google.com/citations?user=tJYUHDgAAAAJ&hl=en' target='_blank'>Ruiping Liu</a>&emsp;
+    <a href='https://scholar.google.com/citations?view_op=search_authors&mauthors=Yi+Xu+Karlsruhe+Institute+of+Technology' target='_blank'>Yi Xu</a>&emsp;
+    <a href='https://scholar.google.com/citations?user=pA9c0YsAAAAJ&hl=en' target='_blank'>Kunyu Peng&#8224;</a>&emsp;
+    <a href='https://scholar.google.com/citations?user=SFCOJxMAAAAJ&hl=en' target='_blank'>Rainer Stiefelhagen</a>
+</div>
+
+<strong>Accepted to <a href='https://www.ieeesmc2025.org/' target='_blank'>IEEE SMC 2025</a></strong><br>
+<sub>&#8224; Corresponding author</sub><br><br>
+
+[![arXiv](https://img.shields.io/badge/arXiv-2507.21072-B31B1B.svg)](https://arxiv.org/abs/2507.21072)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-0A66C2.svg)](LICENSE)
-[![GitHub Stars](https://img.shields.io/github/stars/YOUR_ORG/YOUR_REPO?style=social)](https://github.com/YOUR_ORG/YOUR_REPO)
-[![GitHub Forks](https://img.shields.io/github/forks/YOUR_ORG/YOUR_REPO?style=social)](https://github.com/YOUR_ORG/YOUR_REPO/forks)
+[![GitHub Stars](https://img.shields.io/github/stars/Kratos-Wen/Gear8?style=social)](https://github.com/Kratos-Wen/Gear8)
+[![GitHub Forks](https://img.shields.io/github/forks/Kratos-Wen/Gear8)](https://github.com/Kratos-Wen/Gear8/forks)
 </div>
 
 <p align="center">
