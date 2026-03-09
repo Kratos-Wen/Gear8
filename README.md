@@ -60,31 +60,17 @@ snap_segment_deploy/
 Create and activate a clean Python environment (recommended: Python 3.10):
 
 ```bash
-conda create -y -p .conda_env python=3.10
-conda activate /PATH/TO/snap_segment_deploy/.conda_env
+python3.10 -m venv .venv
+source .venv/bin/activate
 pip install -U pip
 pip install torch torchvision ultralytics opencv-python numpy faiss-cpu sentence-transformers
 pip install llama-cpp-python sounddevice pyttsx3 pygame openai-whisper
 ```
 
 ### 2. Required Repositories and Assets
-The implementation auto-detects `Depth-Anything` in the following order:
+Place `Depth-Anything` at one fixed location:
 
-- `./Depth-Anything` (recommended)
-- `./third_party/Depth-Anything`
-- `../Depth-Anything`
-- `../../Depth-Anything`
-
-You can also set `PathConfig.depth_anything_root` manually in `snap_segment_deploy_assistant/config.py`.
-
-If auto-detection does not match your layout, edit `PathConfig` in
-`snap_segment_deploy_assistant/config.py` and set your own paths.
-
-`FastSAM_Cutie/FastSAM` is searched in:
-
-- `./FastSAM_Cutie/FastSAM`
-- `../FastSAM_Cutie/FastSAM`
-- `../../FastSAM_Cutie/FastSAM`
+- `snap_segment_deploy/third_party/Depth-Anything`
 
 Expected files:
 

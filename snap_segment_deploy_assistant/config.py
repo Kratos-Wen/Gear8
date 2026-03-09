@@ -7,7 +7,6 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-WORKSPACE_ROOT = REPO_ROOT.parents[1]
 
 
 def _first_existing(candidates: list[Path]) -> Path:
@@ -22,18 +21,12 @@ FASTSAM_ROOT = _first_existing(
     [
         REPO_ROOT / "FastSAM_Cutie" / "FastSAM",
         REPO_ROOT.parent / "FastSAM_Cutie" / "FastSAM",
-        WORKSPACE_ROOT / "FastSAM_Cutie" / "FastSAM",
+        REPO_ROOT.parents[1] / "FastSAM_Cutie" / "FastSAM",
     ]
 )
 
-DEPTH_ANYTHING_ROOT = _first_existing(
-    [
-        REPO_ROOT / "Depth-Anything",
-        REPO_ROOT / "third_party" / "Depth-Anything",
-        REPO_ROOT.parent / "Depth-Anything",
-        WORKSPACE_ROOT / "Depth-Anything",
-    ]
-)
+# Fixed single location for the Depth-Anything codebase.
+DEPTH_ANYTHING_ROOT = REPO_ROOT / "third_party" / "Depth-Anything"
 
 
 @dataclass(frozen=True)
