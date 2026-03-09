@@ -31,6 +31,12 @@ This repository provides a clean, modularized implementation of the Snap-Segment
 - `Segment`: synthetic composition and optional Background-Agnostic Refinement (BAR) utilities.
 - `Deploy`: retrieval-augmented multimodal interaction with detection, depth, ASR, and local LLM reasoning.
 
+## Path Configuration Notice
+- This repository does **not** depend on any personal local path.
+- In this README, every path written as `/PATH/TO/...` is a placeholder.
+- You must replace these placeholders with paths on your own machine before running.
+- Do not commit personal absolute paths when publishing your own fork.
+
 ## Repository Layout
 ```text
 snap_segment_deploy/
@@ -72,6 +78,9 @@ The implementation auto-detects `Depth-Anything` in the following order:
 - `../../Depth-Anything`
 
 You can also set `PathConfig.depth_anything_root` manually in `snap_segment_deploy_assistant/config.py`.
+
+If auto-detection does not match your layout, edit `PathConfig` in
+`snap_segment_deploy_assistant/config.py` and set your own paths.
 
 `FastSAM_Cutie/FastSAM` is searched in:
 
