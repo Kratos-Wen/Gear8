@@ -31,8 +31,6 @@ This repository provides a clean, modularized implementation of the Snap-Segment
 - `Segment`: synthetic composition and optional Background-Agnostic Refinement (BAR) utilities.
 - `Deploy`: retrieval-augmented multimodal interaction with detection, depth, ASR, and local LLM reasoning.
 
-The runtime logic remains aligned with the original `User_Study_AVCR.py` behavior while exposing modular boundaries for extension and ablation studies.
-
 ## Repository Layout
 ```text
 snap_segment_deploy/
@@ -93,7 +91,6 @@ Runtime controls:
 The Gear8 dataset mentioned in the paper will be released with this repository.
 
 - Download link: **[Coming soon](https://github.com/Kratos-Wen/Gear8/releases)**  
-  Replace this link with the final dataset URL when ready.
 
 ## Citation
 ```bibtex
