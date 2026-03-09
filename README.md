@@ -97,11 +97,13 @@ The Gear8 dataset mentioned in the paper will be released with this repository.
 
 ## Citation
 ```bibtex
-@article{wen2025snap,
-  title={Snap, segment, deploy: A visual data and detection pipeline for wearable industrial assistants},
+@inproceedings{wen2025snap,
+  title={Snap, Segment, Deploy: A Visual Data and Detection Pipeline for Wearable Industrial Assistants},
   author={Wen, Di and Zheng, Junwei and Liu, Ruiping and Xu, Yi and Peng, Kunyu and Stiefelhagen, Rainer},
-  journal={arXiv preprint arXiv:2507.21072},
-  year={2025}
+  booktitle={2025 IEEE International Conference on Systems, Man, and Cybernetics (SMC)},
+  pages={1270--1276},
+  year={2025},
+  organization={IEEE}
 }
 ```
 
