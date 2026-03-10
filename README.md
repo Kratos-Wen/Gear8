@@ -124,7 +124,7 @@ Runtime controls:
 ## Gear8 Dataset
 The Gear8 dataset mentioned in the paper will be released with this repository.
 
-- Download link: **[Coming soon](https://github.com/Kratos-Wen/Gear8/releases)**  
+- Download link: **[Gear8](https://huggingface.co/datasets/KratosWen/Gear8)**  
 
 ## Citation
 ```bibtex
